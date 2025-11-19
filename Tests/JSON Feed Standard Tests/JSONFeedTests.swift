@@ -1,5 +1,5 @@
 import Testing
-@testable import JSONFeed
+@testable import JSON_Feed_Standard
 import URI_Standard
 import RFC_5322
 
@@ -150,7 +150,7 @@ struct `JSON Feed Tests` {
     }
 
     @Test
-    func `Author type`() {
+    func `Author type`() throws {
         let author = JSONFeed.Author(
             name: "Test Author",
             url: try URI("https://author.com"),
@@ -163,7 +163,7 @@ struct `JSON Feed Tests` {
     }
 
     @Test
-    func `Attachment type`() {
+    func `Attachment type`() throws {
         let attachment = JSONFeed.Attachment(
             url: try URI("https://example.com/video.mp4"),
             mimeType: "video/mp4",
@@ -180,7 +180,7 @@ struct `JSON Feed Tests` {
     }
 
     @Test
-    func `Hub type`() {
+    func `Hub type`() throws {
         let hub = JSONFeed.Hub(
             type: "WebSub",
             url: try URI("https://hub.example.com")
