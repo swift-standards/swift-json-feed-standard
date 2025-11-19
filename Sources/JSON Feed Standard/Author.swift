@@ -1,3 +1,4 @@
+import URI_Standard
 
 extension JSONFeed {
     /// Represents an author in a JSON Feed
@@ -5,16 +6,16 @@ extension JSONFeed {
         /// The author's name
         public let name: String?
 
-        /// The URL of a site owned by the author
-        public let url: URL?
+        /// The URI of a site owned by the author
+        public let url: URI?
 
-        /// The URL for an image for the author
-        public let avatar: URL?
+        /// The URI for an image for the author
+        public let avatar: URI?
 
         public init(
             name: String? = nil,
-            url: URL? = nil,
-            avatar: URL? = nil
+            url: URI? = nil,
+            avatar: URI? = nil
         ) {
             self.name = name
             self.url = url

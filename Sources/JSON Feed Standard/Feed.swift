@@ -1,3 +1,4 @@
+import URI_Standard
 
 extension JSONFeed {
     /// Represents a JSON Feed version 1.1
@@ -9,10 +10,10 @@ extension JSONFeed {
         public let title: String
 
         /// The URL of the website
-        public let homePageURL: URL?
+        public let homePageURL: URI?
 
         /// The URL of the feed itself
-        public let feedURL: URL?
+        public let feedURL: URI?
 
         /// A description of the feed
         public let description: String?
@@ -21,13 +22,13 @@ extension JSONFeed {
         public let userComment: String?
 
         /// The URL of a feed providing the next n items, where n is determined by the publisher
-        public let nextURL: URL?
+        public let nextURL: URI?
 
         /// The URL of an image for the feed
-        public let icon: URL?
+        public let icon: URI?
 
         /// The URL of an image for the feed suitable for use in a toolbar
-        public let favicon: URL?
+        public let favicon: URI?
 
         /// The authors of the feed
         public let authors: [Author]?
@@ -47,13 +48,13 @@ extension JSONFeed {
         @_disfavoredOverload
         public init(
             title: String,
-            homePageURL: URL? = nil,
-            feedURL: URL? = nil,
+            homePageURL: URI? = nil,
+            feedURL: URI? = nil,
             description: String? = nil,
             userComment: String? = nil,
-            nextURL: URL? = nil,
-            icon: URL? = nil,
-            favicon: URL? = nil,
+            nextURL: URI? = nil,
+            icon: URI? = nil,
+            favicon: URI? = nil,
             authors: [Author]? = nil,
             language: String? = nil,
             expired: Bool? = nil,
@@ -107,13 +108,13 @@ extension JSONFeed {
             }
 
             title = try container.decode(String.self, forKey: .title)
-            homePageURL = try container.decodeIfPresent(URL.self, forKey: .homePageURL)
-            feedURL = try container.decodeIfPresent(URL.self, forKey: .feedURL)
+            homePageURL = try container.decodeIfPresent(URI.self, forKey: .homePageURL)
+            feedURL = try container.decodeIfPresent(URI.self, forKey: .feedURL)
             description = try container.decodeIfPresent(String.self, forKey: .description)
             userComment = try container.decodeIfPresent(String.self, forKey: .userComment)
-            nextURL = try container.decodeIfPresent(URL.self, forKey: .nextURL)
-            icon = try container.decodeIfPresent(URL.self, forKey: .icon)
-            favicon = try container.decodeIfPresent(URL.self, forKey: .favicon)
+            nextURL = try container.decodeIfPresent(URI.self, forKey: .nextURL)
+            icon = try container.decodeIfPresent(URI.self, forKey: .icon)
+            favicon = try container.decodeIfPresent(URI.self, forKey: .favicon)
             authors = try container.decodeIfPresent([Author].self, forKey: .authors)
             language = try container.decodeIfPresent(String.self, forKey: .language)
             expired = try container.decodeIfPresent(Bool.self, forKey: .expired)

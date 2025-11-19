@@ -1,3 +1,4 @@
+import URI_Standard
 
 extension JSONFeed {
     /// Represents a real-time notification hub for a JSON Feed
@@ -5,12 +6,12 @@ extension JSONFeed {
         /// The type of the hub (e.g., "rssCloud", "WebSub")
         public let type: String
 
-        /// The URL of the hub
-        public let url: URL
+        /// The URI of the hub
+        public let url: URI
 
         public init(
             type: String,
-            url: URL
+            url: URI
         ) {
             self.type = type
             self.url = url

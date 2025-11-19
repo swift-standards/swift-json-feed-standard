@@ -1,3 +1,5 @@
+import URI_Standard
+import RFC_5322
 
 extension JSONFeed {
     /// Represents an item in a JSON Feed
@@ -6,10 +8,10 @@ extension JSONFeed {
         public let id: String
 
         /// The URL of the resource described by the item
-        public let url: URL?
+        public let url: URI?
 
         /// The URL of a page elsewhere that is referenced by this item
-        public let externalURL: URL?
+        public let externalURL: URI?
 
         /// The title of the item
         public let title: String?
@@ -24,16 +26,16 @@ extension JSONFeed {
         public let summary: String?
 
         /// The URL of the main image for the item
-        public let image: URL?
+        public let image: URI?
 
         /// The URL of an image to use as a banner
-        public let bannerImage: URL?
+        public let bannerImage: URI?
 
         /// The date the item was published
-        public let datePublished: Date?
+        public let datePublished: RFC_5322.Date?
 
         /// The date the item was modified
-        public let dateModified: Date?
+        public let dateModified: RFC_5322.Date?
 
         /// The authors of this item
         public let authors: [Author]?
@@ -52,16 +54,16 @@ extension JSONFeed {
         @_disfavoredOverload
         public init(
             id: String,
-            url: URL? = nil,
-            externalURL: URL? = nil,
+            url: URI? = nil,
+            externalURL: URI? = nil,
             title: String? = nil,
             contentHTML: String? = nil,
             contentText: String? = nil,
             summary: String? = nil,
-            image: URL? = nil,
-            bannerImage: URL? = nil,
-            datePublished: Date? = nil,
-            dateModified: Date? = nil,
+            image: URI? = nil,
+            bannerImage: URI? = nil,
+            datePublished: RFC_5322.Date? = nil,
+            dateModified: RFC_5322.Date? = nil,
             authors: [Author]? = nil,
             tags: [String]? = nil,
             language: String? = nil,
@@ -114,16 +116,16 @@ extension JSONFeed {
             let container = try decoder.container(keyedBy: CodingKeys.self)
 
             id = try container.decode(String.self, forKey: .id)
-            url = try container.decodeIfPresent(URL.self, forKey: .url)
-            externalURL = try container.decodeIfPresent(URL.self, forKey: .externalURL)
+            url = try container.decodeIfPresent(URI.self, forKey: .url)
+            externalURL = try container.decodeIfPresent(URI.self, forKey: .externalURL)
             title = try container.decodeIfPresent(String.self, forKey: .title)
             contentHTML = try container.decodeIfPresent(String.self, forKey: .contentHTML)
             contentText = try container.decodeIfPresent(String.self, forKey: .contentText)
             summary = try container.decodeIfPresent(String.self, forKey: .summary)
-            image = try container.decodeIfPresent(URL.self, forKey: .image)
-            bannerImage = try container.decodeIfPresent(URL.self, forKey: .bannerImage)
-            datePublished = try container.decodeIfPresent(Date.self, forKey: .datePublished)
-            dateModified = try container.decodeIfPresent(Date.self, forKey: .dateModified)
+            image = try container.decodeIfPresent(URI.self, forKey: .image)
+            bannerImage = try container.decodeIfPresent(URI.self, forKey: .bannerImage)
+            datePublished = try container.decodeIfPresent(RFC_5322.Date.self, forKey: .datePublished)
+            dateModified = try container.decodeIfPresent(RFC_5322.Date.self, forKey: .dateModified)
             authors = try container.decodeIfPresent([Author].self, forKey: .authors)
             tags = try container.decodeIfPresent([String].self, forKey: .tags)
             language = try container.decodeIfPresent(String.self, forKey: .language)

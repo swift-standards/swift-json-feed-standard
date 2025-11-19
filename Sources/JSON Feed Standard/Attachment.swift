@@ -1,9 +1,10 @@
+import URI_Standard
 
 extension JSONFeed {
     /// Represents an attachment in a JSON Feed item
     public struct Attachment: Hashable, Sendable, Codable {
         /// The location of the attachment
-        public let url: URL
+        public let url: URI
 
         /// The MIME type of the attachment
         public let mimeType: String
@@ -18,7 +19,7 @@ extension JSONFeed {
         public let durationInSeconds: Int?
 
         public init(
-            url: URL,
+            url: URI,
             mimeType: String,
             title: String? = nil,
             sizeInBytes: Int? = nil,
@@ -51,7 +52,7 @@ extension JSONFeed {
         /// ```
         @available(macOS 13, iOS 16, tvOS 16, watchOS 9, *)
         public init(
-            url: URL,
+            url: URI,
             mimeType: String,
             title: String? = nil,
             sizeInBytes: Int? = nil,

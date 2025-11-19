@@ -1,5 +1,7 @@
 import Testing
 @testable import JSONFeed
+import URI_Standard
+import RFC_5322
 
 @Suite
 struct `JSON Feed Tests` {
@@ -19,18 +21,18 @@ struct `JSON Feed Tests` {
     func `Feed with all optional fields`() throws {
         let feed = JSONFeed.Feed(
             title: "My Test Feed",
-            homePageURL: URL(string: "https://example.com")!,
-            feedURL: URL(string: "https://example.com/feed.json")!,
+            homePageURL: try URI("https://example.com"),
+            feedURL: try URI("https://example.com/feed.json"),
             description: "A test feed",
             userComment: "This is a test",
-            nextURL: URL(string: "https://example.com/feed/2.json")!,
-            icon: URL(string: "https://example.com/icon.png")!,
-            favicon: URL(string: "https://example.com/favicon.ico")!,
+            nextURL: try URI("https://example.com/feed/2.json"),
+            icon: try URI("https://example.com/icon.png"),
+            favicon: try URI("https://example.com/favicon.ico"),
             authors: [
                 JSONFeed.Author(
                     name: "John Doe",
-                    url: URL(string: "https://johndoe.com")!,
-                    avatar: URL(string: "https://johndoe.com/avatar.jpg")!
+                    url: try URI("https://johndoe.com"),
+                    avatar: try URI("https://johndoe.com/avatar.jpg")
                 )
             ],
             language: "en-US",
@@ -38,14 +40,14 @@ struct `JSON Feed Tests` {
             hubs: [
                 JSONFeed.Hub(
                     type: "WebSub",
-                    url: URL(string: "https://example.com/hub")!
+                    url: try URI("https://example.com/hub")
                 )
             ],
             items: []
         )
 
-        #expect(feed.homePageURL?.absoluteString == "https://example.com")
-        #expect(feed.feedURL?.absoluteString == "https://example.com/feed.json")
+        #expect(feed.homePageURL?.value == "https://example.com")
+        #expect(feed.feedURL?.value == "https://example.com/feed.json")
         #expect(feed.description == "A test feed")
         #expect(feed.userComment == "This is a test")
         #expect(feed.language == "en-US")
@@ -58,7 +60,7 @@ struct `JSON Feed Tests` {
     func `Item with HTML content`() throws {
         let item = try JSONFeed.Item(
             id: "1",
-            url: URL(string: "https://example.com/post1")!,
+            url: try URI("https://example.com/post1"),
             title: "Test Post",
             contentHTML: "<p>Hello, world!</p>"
         )
@@ -106,17 +108,17 @@ struct `JSON Feed Tests` {
 
     @Test
     func `Item with all fields`() throws {
-        let date = Date()
+        let date = try RFC_5322.Date(year: 2025, month: 1, day: 1)
         let item = try JSONFeed.Item(
             id: "5",
-            url: URL(string: "https://example.com/post5")!,
-            externalURL: URL(string: "https://external.com/reference")!,
+            url: try URI("https://example.com/post5"),
+            externalURL: try URI("https://external.com/reference"),
             title: "Complete Post",
             contentHTML: "<p>Content</p>",
             contentText: "Content",
             summary: "A summary",
-            image: URL(string: "https://example.com/image.jpg")!,
-            bannerImage: URL(string: "https://example.com/banner.jpg")!,
+            image: try URI("https://example.com/image.jpg"),
+            bannerImage: try URI("https://example.com/banner.jpg"),
             datePublished: date,
             dateModified: date,
             authors: [
@@ -126,7 +128,7 @@ struct `JSON Feed Tests` {
             language: "en",
             attachments: [
                 JSONFeed.Attachment(
-                    url: URL(string: "https://example.com/file.mp3")!,
+                    url: try URI("https://example.com/file.mp3"),
                     mimeType: "audio/mpeg",
                     title: "Audio File",
                     sizeInBytes: 1024000,
@@ -135,7 +137,7 @@ struct `JSON Feed Tests` {
             ]
         )
 
-        #expect(item.externalURL?.absoluteString == "https://external.com/reference")
+        #expect(item.externalURL?.value == "https://external.com/reference")
         #expect(item.summary == "A summary")
         #expect(item.image != nil)
         #expect(item.bannerImage != nil)
@@ -151,26 +153,26 @@ struct `JSON Feed Tests` {
     func `Author type`() {
         let author = JSONFeed.Author(
             name: "Test Author",
-            url: URL(string: "https://author.com")!,
-            avatar: URL(string: "https://author.com/avatar.jpg")!
+            url: try URI("https://author.com"),
+            avatar: try URI("https://author.com/avatar.jpg")
         )
 
         #expect(author.name == "Test Author")
-        #expect(author.url?.absoluteString == "https://author.com")
-        #expect(author.avatar?.absoluteString == "https://author.com/avatar.jpg")
+        #expect(author.url?.value == "https://author.com")
+        #expect(author.avatar?.value == "https://author.com/avatar.jpg")
     }
 
     @Test
     func `Attachment type`() {
         let attachment = JSONFeed.Attachment(
-            url: URL(string: "https://example.com/video.mp4")!,
+            url: try URI("https://example.com/video.mp4"),
             mimeType: "video/mp4",
             title: "Video",
             sizeInBytes: 5242880,
             durationInSeconds: 300
         )
 
-        #expect(attachment.url.absoluteString == "https://example.com/video.mp4")
+        #expect(attachment.url.value == "https://example.com/video.mp4")
         #expect(attachment.mimeType == "video/mp4")
         #expect(attachment.title == "Video")
         #expect(attachment.sizeInBytes == 5242880)
@@ -181,10 +183,10 @@ struct `JSON Feed Tests` {
     func `Hub type`() {
         let hub = JSONFeed.Hub(
             type: "WebSub",
-            url: URL(string: "https://hub.example.com")!
+            url: try URI("https://hub.example.com")
         )
 
         #expect(hub.type == "WebSub")
-        #expect(hub.url.absoluteString == "https://hub.example.com")
+        #expect(hub.url.value == "https://hub.example.com")
     }
 }
