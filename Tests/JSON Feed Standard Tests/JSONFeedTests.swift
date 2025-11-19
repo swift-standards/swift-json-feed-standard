@@ -1,10 +1,10 @@
 import Testing
 @testable import JSONFeed
 
-@Suite("JSON Feed Tests")
-struct JSONFeedTests {
-    @Test("Basic feed generation")
-    func basicFeedGeneration() throws {
+@Suite
+struct `JSON Feed Tests` {
+    @Test
+    func `Basic feed generation`() throws {
         let feed = JSONFeed.Feed(
             title: "Test Feed",
             items: []
@@ -15,8 +15,8 @@ struct JSONFeedTests {
         #expect(feed.items.isEmpty)
     }
 
-    @Test("Feed with all optional fields")
-    func feedWithAllFields() throws {
+    @Test
+    func `Feed with all optional fields`() throws {
         let feed = JSONFeed.Feed(
             title: "My Test Feed",
             homePageURL: URL(string: "https://example.com")!,
@@ -54,8 +54,8 @@ struct JSONFeedTests {
         #expect(feed.hubs?.count == 1)
     }
 
-    @Test("Item with HTML content")
-    func itemWithHTMLContent() throws {
+    @Test
+    func `Item with HTML content`() throws {
         let item = try JSONFeed.Item(
             id: "1",
             url: URL(string: "https://example.com/post1")!,
@@ -69,8 +69,8 @@ struct JSONFeedTests {
         #expect(item.contentText == nil)
     }
 
-    @Test("Item with text content")
-    func itemWithTextContent() throws {
+    @Test
+    func `Item with text content`() throws {
         let item = try JSONFeed.Item(
             id: "2",
             title: "Plain Text Post",
@@ -82,8 +82,8 @@ struct JSONFeedTests {
         #expect(item.contentHTML == nil)
     }
 
-    @Test("Item with both HTML and text content")
-    func itemWithBothContents() throws {
+    @Test
+    func `Item with both HTML and text content`() throws {
         let item = try JSONFeed.Item(
             id: "3",
             contentHTML: "<p>HTML version</p>",
@@ -94,8 +94,8 @@ struct JSONFeedTests {
         #expect(item.contentText == "Text version")
     }
 
-    @Test("Item without content throws error")
-    func itemWithoutContent() {
+    @Test
+    func `Item without content throws error`() {
         #expect(throws: JSONFeed.ValidationError.self) {
             _ = try JSONFeed.Item(
                 id: "4",
@@ -104,8 +104,8 @@ struct JSONFeedTests {
         }
     }
 
-    @Test("Item with all fields")
-    func itemWithAllFields() throws {
+    @Test
+    func `Item with all fields`() throws {
         let date = Date()
         let item = try JSONFeed.Item(
             id: "5",
@@ -147,8 +147,8 @@ struct JSONFeedTests {
         #expect(item.attachments?.count == 1)
     }
 
-    @Test("Author type")
-    func authorType() {
+    @Test
+    func `Author type`() {
         let author = JSONFeed.Author(
             name: "Test Author",
             url: URL(string: "https://author.com")!,
@@ -160,8 +160,8 @@ struct JSONFeedTests {
         #expect(author.avatar?.absoluteString == "https://author.com/avatar.jpg")
     }
 
-    @Test("Attachment type")
-    func attachmentType() {
+    @Test
+    func `Attachment type`() {
         let attachment = JSONFeed.Attachment(
             url: URL(string: "https://example.com/video.mp4")!,
             mimeType: "video/mp4",
@@ -177,8 +177,8 @@ struct JSONFeedTests {
         #expect(attachment.durationInSeconds == 300)
     }
 
-    @Test("Hub type")
-    func hubType() {
+    @Test
+    func `Hub type`() {
         let hub = JSONFeed.Hub(
             type: "WebSub",
             url: URL(string: "https://hub.example.com")!
