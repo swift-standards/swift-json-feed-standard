@@ -95,7 +95,7 @@ extension JSONFeed {
         }
 
         // Custom decoder to validate version
-        public init(from decoder: Decoder) throws {
+        public init(from decoder: any Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
 
             version = try container.decode(String.self, forKey: .version)

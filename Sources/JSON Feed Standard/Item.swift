@@ -112,7 +112,7 @@ extension JSONFeed {
         }
 
         // Custom decoder to validate content requirement
-        public init(from decoder: Decoder) throws {
+        public init(from decoder: any Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
 
             id = try container.decode(String.self, forKey: .id)
