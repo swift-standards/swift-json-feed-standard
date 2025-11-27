@@ -7,6 +7,7 @@ extension String {
 
 extension Target.Dependency {
     static var jsonFeedStandard: Self { .target(name: .jsonFeedStandard) }
+    static var ieee754: Self { .product(name: "IEEE 754", package: "swift-ieee-754") }
     static var uriStandard: Self { .product(name: "URI Standard", package: "swift-uri-standard") }
     static var rfc5322: Self { .product(name: "RFC 5322", package: "swift-rfc-5322") }
 }
@@ -26,13 +27,14 @@ let package = Package(
         ),
     ],
     dependencies: [
+        .package(url: "https://github.com/swift-standards/swift-ieee-754", from: "0.1.0"),
         .package(url: "https://github.com/swift-standards/swift-uri-standard", from: "0.1.0"),
         .package(url: "https://github.com/swift-standards/swift-rfc-5322", from: "0.1.0")
     ],
     targets: [
         .target(
             name: .jsonFeedStandard,
-            dependencies: [.uriStandard, .rfc5322],
+            dependencies: [.ieee754, .uriStandard, .rfc5322],
             swiftSettings: [
                 .swiftLanguageMode(.v6),
                 .enableExperimentalFeature("StrictConcurrency")

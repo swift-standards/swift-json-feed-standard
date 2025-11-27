@@ -71,7 +71,7 @@ extension JSONFeed {
         ) throws {
             // Validate that at least one content field is provided
             guard contentHTML != nil || contentText != nil else {
-                throw ValidationError.itemRequiresContent(
+                throw Error.itemRequiresContent(
                     description: "Item must have either contentHTML or contentText"
                 )
             }
@@ -133,7 +133,7 @@ extension JSONFeed {
 
             // Validate content requirement
             guard contentHTML != nil || contentText != nil else {
-                throw ValidationError.itemRequiresContent(
+                throw Error.itemRequiresContent(
                     description: "Item must have either contentHTML or contentText"
                 )
             }
