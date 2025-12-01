@@ -34,19 +34,11 @@ let package = Package(
     targets: [
         .target(
             name: .jsonFeedStandard,
-            dependencies: [.ieee754, .uriStandard, .rfc5322],
-            swiftSettings: [
-                .swiftLanguageMode(.v6),
-                .enableExperimentalFeature("StrictConcurrency")
-            ]
+            dependencies: [.ieee754, .uriStandard, .rfc5322]
         ),
         .testTarget(
             name: .jsonFeedStandard.tests,
-            dependencies: [.jsonFeedStandard],
-            swiftSettings: [
-                .swiftLanguageMode(.v6),
-                .enableExperimentalFeature("StrictConcurrency")
-            ]
+            dependencies: [.jsonFeedStandard]
         ),
     ],
     swiftLanguageModes: [.v6]

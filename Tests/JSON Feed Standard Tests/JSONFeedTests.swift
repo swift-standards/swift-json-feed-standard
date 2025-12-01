@@ -98,7 +98,7 @@ struct `JSON Feed Tests` {
 
     @Test
     func `Item without content throws error`() {
-        #expect(throws: JSONFeed.ValidationError.self) {
+        #expect(throws: JSONFeed.Error.self) {
             _ = try JSONFeed.Item(
                 id: "4",
                 title: "No Content"
