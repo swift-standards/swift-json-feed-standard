@@ -1,5 +1,5 @@
-import URI_Standard
 import RFC_5322
+import URI_Standard
 
 extension JSONFeed {
     /// Represents an item in a JSON Feed
@@ -124,7 +124,10 @@ extension JSONFeed {
             summary = try container.decodeIfPresent(String.self, forKey: .summary)
             image = try container.decodeIfPresent(URI.self, forKey: .image)
             bannerImage = try container.decodeIfPresent(URI.self, forKey: .bannerImage)
-            datePublished = try container.decodeIfPresent(RFC_5322.Date.self, forKey: .datePublished)
+            datePublished = try container.decodeIfPresent(
+                RFC_5322.Date.self,
+                forKey: .datePublished
+            )
             dateModified = try container.decodeIfPresent(RFC_5322.Date.self, forKey: .dateModified)
             authors = try container.decodeIfPresent([Author].self, forKey: .authors)
             tags = try container.decodeIfPresent([String].self, forKey: .tags)

@@ -1,7 +1,8 @@
-import Testing
-@testable import JSON_Feed_Standard
-import URI_Standard
 import RFC_5322
+import Testing
+import URI_Standard
+
+@testable import JSON_Feed_Standard
 
 @Suite
 struct `JSON Feed Tests` {
@@ -131,7 +132,7 @@ struct `JSON Feed Tests` {
                     url: try URI("https://example.com/file.mp3"),
                     mimeType: "audio/mpeg",
                     title: "Audio File",
-                    sizeInBytes: 1024000,
+                    sizeInBytes: 1_024_000,
                     durationInSeconds: 180
                 )
             ]
@@ -168,14 +169,14 @@ struct `JSON Feed Tests` {
             url: try URI("https://example.com/video.mp4"),
             mimeType: "video/mp4",
             title: "Video",
-            sizeInBytes: 5242880,
+            sizeInBytes: 5_242_880,
             durationInSeconds: 300
         )
 
         #expect(attachment.url.value == "https://example.com/video.mp4")
         #expect(attachment.mimeType == "video/mp4")
         #expect(attachment.title == "Video")
-        #expect(attachment.sizeInBytes == 5242880)
+        #expect(attachment.sizeInBytes == 5_242_880)
         #expect(attachment.durationInSeconds == 300)
     }
 

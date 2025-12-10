@@ -101,7 +101,10 @@ extension JSONFeed {
             version = try container.decode(String.self, forKey: .version)
 
             // Validate version
-            guard version == "https://jsonfeed.org/version/1.1" || version == "https://jsonfeed.org/version/1" else {
+            guard
+                version == "https://jsonfeed.org/version/1.1"
+                    || version == "https://jsonfeed.org/version/1"
+            else {
                 throw Error.invalidVersion(
                     description: "Expected version 1.1 or 1, got: \(version)"
                 )

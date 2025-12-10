@@ -1,4 +1,3 @@
-
 /// A namespace for JSON Feed types
 ///
 /// JSON Feed is a format similar to RSS and Atom but in JSON.
