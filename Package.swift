@@ -27,9 +27,9 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(url: "https://github.com/swift-standards/swift-ieee-754", from: "0.3.3"),
-        .package(url: "https://github.com/swift-standards/swift-uri-standard", from: "0.1.2"),
-        .package(url: "https://github.com/swift-standards/swift-rfc-5322", from: "0.7.1")
+        .package(path: "../swift-ieee-754"),
+        .package(path: "../swift-uri-standard"),
+        .package(path: "../swift-rfc-5322")
     ],
     targets: [
         .target(
