@@ -22,9 +22,9 @@ let package = Package(
     ],
     products: [
         .library(
-            name: .jsonFeedStandard,
-            targets: [.jsonFeedStandard]
-        ),
+            name: "JSON Feed Standard",
+            targets: ["JSON Feed Standard"]
+        )
     ],
     dependencies: [
         .package(path: "../swift-ieee-754"),
@@ -33,13 +33,9 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: .jsonFeedStandard,
+            name: "JSON Feed Standard",
             dependencies: [.ieee754, .uriStandard, .rfc5322]
-        ),
-        .testTarget(
-            name: .jsonFeedStandard.tests,
-            dependencies: [.jsonFeedStandard]
-        ),
+        )
     ],
     swiftLanguageModes: [.v6]
 )
