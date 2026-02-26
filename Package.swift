@@ -35,7 +35,13 @@ let package = Package(
         .target(
             name: "JSON Feed Standard",
             dependencies: [.ieee754, .uriStandard, .rfc5322]
-        )
+        ),
+        .testTarget(
+            name: "JSON Feed Standard Tests",
+            dependencies: [
+                "JSON Feed Standard",
+            ]
+        ),
     ],
     swiftLanguageModes: [.v6]
 )
@@ -51,6 +57,7 @@ for target in package.targets where ![.system, .binary, .plugin, .macro].contain
         .enableUpcomingFeature("ExistentialAny"),
         .enableUpcomingFeature("InternalImportsByDefault"),
         .enableUpcomingFeature("MemberImportVisibility"),
+        .enableUpcomingFeature("NonisolatedNonsendingByDefault"),
         .enableExperimentalFeature("Lifetimes"),
         .enableExperimentalFeature("SuppressedAssociatedTypes"),
         .enableExperimentalFeature("SuppressedAssociatedTypesWithDefaults"),
