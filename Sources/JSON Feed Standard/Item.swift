@@ -68,10 +68,10 @@ extension JSONFeed {
             tags: [String]? = nil,
             language: String? = nil,
             attachments: [Attachment]? = nil
-        ) throws {
+        ) throws(JSONFeed.Error) {
             // Validate that at least one content field is provided
             guard contentHTML != nil || contentText != nil else {
-                throw Error.itemRequiresContent(
+                throw .itemRequiresContent(
                     description: "Item must have either contentHTML or contentText"
                 )
             }
