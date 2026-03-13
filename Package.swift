@@ -27,9 +27,9 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(path: "../swift-ieee-754"),
+        .package(path: "../../swift-ieee/swift-ieee-754"),
         .package(path: "../swift-uri-standard"),
-        .package(path: "../swift-rfc-5322")
+        .package(path: "../../swift-ietf/swift-rfc-5322")
     ],
     targets: [
         .target(
