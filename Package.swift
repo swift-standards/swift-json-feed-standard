@@ -27,9 +27,9 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(path: "../../swift-ieee/swift-ieee-754"),
-        .package(path: "../swift-uri-standard"),
-        .package(path: "../../swift-ietf/swift-rfc-5322")
+        .package(url: "https://github.com/swift-ieee/swift-ieee-754.git", branch: "main"),
+        .package(url: "https://github.com/swift-standards/swift-uri-standard.git", branch: "main"),
+        .package(url: "https://github.com/swift-ietf/swift-rfc-5322.git", branch: "main")
     ],
     targets: [
         .target(
