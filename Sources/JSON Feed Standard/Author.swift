@@ -21,12 +21,14 @@ extension JSONFeed {
             self.url = url
             self.avatar = avatar
         }
+    }
+}
 
-        enum CodingKeys: String, CodingKey {
-            case name
-            case url
-            case avatar
-        }
+extension JSONFeed.Author {
+    enum CodingKeys: String, CodingKey {
+        case name
+        case url
+        case avatar
     }
 }
 

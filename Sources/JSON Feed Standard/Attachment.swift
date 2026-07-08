@@ -32,14 +32,6 @@ extension JSONFeed {
             self.durationInSeconds = durationInSeconds
         }
 
-        enum CodingKeys: String, CodingKey {
-            case url
-            case mimeType = "mime_type"
-            case title
-            case sizeInBytes = "size_in_bytes"
-            case durationInSeconds = "duration_in_seconds"
-        }
-
         /// Convert Swift.Duration to durationInSeconds
         ///
         /// Example:
@@ -64,19 +56,29 @@ extension JSONFeed {
             self.sizeInBytes = sizeInBytes
             self.durationInSeconds = Int(duration.components.seconds)
         }
+    }
+}
 
-        /// Get duration as Swift.Duration
-        ///
-        /// Example:
-        /// ```swift
-        /// if let duration = attachment.duration {
-        ///     print("Duration: \(duration)")
-        /// }
-        /// ```
-        @available(macOS 13, iOS 16, tvOS 16, watchOS 9, *)
-        public var duration: Swift.Duration? {
-            guard let seconds = durationInSeconds else { return nil }
-            return .seconds(seconds)
-        }
+extension JSONFeed.Attachment {
+    enum CodingKeys: String, CodingKey {
+        case url
+        case mimeType = "mime_type"
+        case title
+        case sizeInBytes = "size_in_bytes"
+        case durationInSeconds = "duration_in_seconds"
+    }
+
+    /// Get duration as Swift.Duration
+    ///
+    /// Example:
+    /// ```swift
+    /// if let duration = attachment.duration {
+    ///     print("Duration: \(duration)")
+    /// }
+    /// ```
+    @available(macOS 13, iOS 16, tvOS 16, watchOS 9, *)
+    public var duration: Swift.Duration? {
+        guard let seconds = durationInSeconds else { return nil }
+        return .seconds(seconds)
     }
 }

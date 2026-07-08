@@ -77,23 +77,6 @@ extension JSONFeed {
             self.items = items
         }
 
-        enum CodingKeys: String, CodingKey {
-            case version
-            case title
-            case homePageURL = "home_page_url"
-            case feedURL = "feed_url"
-            case description
-            case userComment = "user_comment"
-            case nextURL = "next_url"
-            case icon
-            case favicon
-            case authors
-            case language
-            case expired
-            case hubs
-            case items
-        }
-
         // Custom decoder to validate version
         public init(from decoder: any Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -124,5 +107,24 @@ extension JSONFeed {
             hubs = try container.decodeIfPresent([Hub].self, forKey: .hubs)
             items = try container.decode([Item].self, forKey: .items)
         }
+    }
+}
+
+extension JSONFeed.Feed {
+    enum CodingKeys: String, CodingKey {
+        case version
+        case title
+        case homePageURL = "home_page_url"
+        case feedURL = "feed_url"
+        case description
+        case userComment = "user_comment"
+        case nextURL = "next_url"
+        case icon
+        case favicon
+        case authors
+        case language
+        case expired
+        case hubs
+        case items
     }
 }

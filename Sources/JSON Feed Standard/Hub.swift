@@ -16,10 +16,12 @@ extension JSONFeed {
             self.type = type
             self.url = url
         }
+    }
+}
 
-        enum CodingKeys: String, CodingKey {
-            case type
-            case url
-        }
+extension JSONFeed.Hub {
+    enum CodingKeys: String, CodingKey {
+        case type
+        case url
     }
 }
