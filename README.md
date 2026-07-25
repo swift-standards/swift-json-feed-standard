@@ -1,7 +1,7 @@
 # swift-json-feed-standard
 
-[![CI](https://github.com/swift-standards/swift-json-feed-standard/workflows/CI/badge.svg)](https://github.com/swift-standards/swift-json-feed-standard/actions/workflows/ci.yml)
 ![Development Status](https://img.shields.io/badge/status-active--development-blue.svg)
+[![CI](https://github.com/swift-standards/swift-json-feed-standard/workflows/CI/badge.svg)](https://github.com/swift-standards/swift-json-feed-standard/actions/workflows/ci.yml)
 
 Type-safe JSON Feed type definitions for Swift (Version 1.1 specification).
 
