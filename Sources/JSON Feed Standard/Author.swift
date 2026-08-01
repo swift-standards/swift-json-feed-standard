@@ -24,14 +24,6 @@ extension JSONFeed {
     }
 }
 
-extension JSONFeed.Author {
-    enum CodingKeys: String, CodingKey {
-        case name
-        case url
-        case avatar
-    }
-}
-
 // MARK: - ExpressibleByStringLiteral
 extension JSONFeed.Author: ExpressibleByStringLiteral {
     /// Creates an author from a string literal (just name, no URL or avatar)
