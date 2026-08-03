@@ -18,7 +18,7 @@ let package = Package(
         .macOS(.v26),
         .iOS(.v26),
         .tvOS(.v26),
-        .watchOS(.v26)
+        .watchOS(.v26),
     ],
     products: [
         .library(
@@ -29,7 +29,7 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/swift-ieee/swift-ieee-754.git", branch: "main"),
         .package(url: "https://github.com/swift-standards/swift-uri-standard.git", branch: "main"),
-        .package(url: "https://github.com/swift-ietf/swift-rfc-5322.git", branch: "main")
+        .package(url: "https://github.com/swift-ietf/swift-rfc-5322.git", branch: "main"),
     ],
     targets: [
         .target(
@@ -39,7 +39,7 @@ let package = Package(
         .testTarget(
             name: "JSON Feed Standard Tests",
             dependencies: [
-                "JSON Feed Standard",
+                "JSON Feed Standard"
             ]
         ),
     ],
