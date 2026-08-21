@@ -2,55 +2,39 @@ import RFC_5322
 import URI_Standard
 
 extension JSONFeed {
-    /// Represents an item in a JSON Feed
+
     public struct Item: Hashable, Sendable, Codable {
-        /// Unique identifier for this item
+
         public let id: String
 
-        /// The URL of the resource described by the item
         public let url: URI?
 
-        /// The URL of a page elsewhere that is referenced by this item
         public let externalURL: URI?
 
-        /// The title of the item
         public let title: String?
 
-        /// The HTML content of the item
         public let contentHTML: String?
 
-        /// The plain text content of the item
         public let contentText: String?
 
-        /// A plain text summary of the item
         public let summary: String?
 
-        /// The URL of the main image for the item
         public let image: URI?
 
-        /// The URL of an image to use as a banner
         public let bannerImage: URI?
 
-        /// The date the item was published
         public let datePublished: RFC_5322.Date?
 
-        /// The date the item was modified
         public let dateModified: RFC_5322.Date?
 
-        /// The authors of this item
         public let authors: [Author]?
 
-        /// Tags associated with this item
         public let tags: [String]?
 
-        /// The language of the item
         public let language: String?
 
-        /// Attachments for this item
         public let attachments: [Attachment]?
 
-        /// Creates a new item with validation
-        /// - Throws: ValidationError.itemRequiresContent if neither contentHTML nor contentText is provided
         @_disfavoredOverload
         public init(
             id: String,
@@ -69,7 +53,7 @@ extension JSONFeed {
             language: String? = nil,
             attachments: [Attachment]? = nil
         ) throws(JSONFeed.Error) {
-            // Validate that at least one content field is provided
+
             guard contentHTML != nil || contentText != nil else {
                 throw .itemRequiresContent(
                     description: "Item must have either contentHTML or contentText"
@@ -93,7 +77,6 @@ extension JSONFeed {
             self.attachments = attachments
         }
 
-        // Custom decoder to validate content requirement
         public init(from decoder: any Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
 
@@ -116,7 +99,6 @@ extension JSONFeed {
             language = try container.decodeIfPresent(String.self, forKey: .language)
             attachments = try container.decodeIfPresent([Attachment].self, forKey: .attachments)
 
-            // Validate content requirement
             guard contentHTML != nil || contentText != nil else {
                 throw Error.itemRequiresContent(
                     description: "Item must have either contentHTML or contentText"

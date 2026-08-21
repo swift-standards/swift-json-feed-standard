@@ -1,48 +1,35 @@
 import URI_Standard
 
 extension JSONFeed {
-    /// Represents a JSON Feed version 1.1
+
     public struct Feed: Hashable, Sendable, Codable {
-        /// The version of the JSON Feed specification (always "https://jsonfeed.org/version/1.1")
+
         public let version: String
 
-        /// The title of the feed
         public let title: String
 
-        /// The URL of the website
         public let homePageURL: URI?
 
-        /// The URL of the feed itself
         public let feedURL: URI?
 
-        /// A description of the feed
         public let description: String?
 
-        /// A description of the purpose of the feed
         public let userComment: String?
 
-        /// The URL of a feed providing the next n items, where n is determined by the publisher
         public let nextURL: URI?
 
-        /// The URL of an image for the feed
         public let icon: URI?
 
-        /// The URL of an image for the feed suitable for use in a toolbar
         public let favicon: URI?
 
-        /// The authors of the feed
         public let authors: [Author]?
 
-        /// The primary language for the feed
         public let language: String?
 
-        /// Whether the feed will never update again
         public let expired: Bool?
 
-        /// Real-time notification hubs for this feed
         public let hubs: [Hub]?
 
-        /// The items in the feed
         public let items: [Item]
 
         @_disfavoredOverload
@@ -77,13 +64,11 @@ extension JSONFeed {
             self.items = items
         }
 
-        // Custom decoder to validate version
         public init(from decoder: any Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
 
             version = try container.decode(String.self, forKey: .version)
 
-            // Validate version
             guard
                 version == "https://jsonfeed.org/version/1.1"
                     || version == "https://jsonfeed.org/version/1"
