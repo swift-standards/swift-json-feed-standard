@@ -9,7 +9,7 @@ Type-safe JSON Feed type definitions for Swift (Version 1.1 specification).
 
 swift-json-feed-standard provides complete JSON Feed 1.1 specification support with type-safe Swift types for representing JSON feed data structures.
 
-For JSON feed generation with type-safe convenience APIs, see [swift-json-feed](https://github.com/swift-foundations/swift-json-feed).
+For JSON feed generation with type-safe convenience APIs, see [swift-json-feed](https://github.com/swift-compositions/swift-json-feed).
 
 ## Features
 
@@ -63,11 +63,11 @@ print(feed.title)  // "My Blog"
 print(feed.items.count)  // 1
 ```
 
-Note: This package provides only the type definitions. For JSON generation and parsing, see [swift-json-feed](https://github.com/swift-foundations/swift-json-feed).
+Note: This package provides only the type definitions. For JSON generation and parsing, see [swift-json-feed](https://github.com/swift-compositions/swift-json-feed).
 
 ## Related Packages
 
-- [swift-json-feed](https://github.com/swift-foundations/swift-json-feed): JSON feed generation with type-safe convenience APIs and ArrayBuilder support
+- [swift-json-feed](https://github.com/swift-compositions/swift-json-feed): JSON feed generation with type-safe convenience APIs and ArrayBuilder support
 - [swift-rss-standard](https://github.com/swift-standards/swift-rss-standard): Type-safe RSS 2.0 feed type definitions
 - [swift-rfc-4287](https://github.com/swift-ietf/swift-rfc-4287): Type-safe Atom feed type definitions (RFC 4287)
 - [swift-syndication](https://github.com/coenttb/swift-syndication): Unified syndication API supporting RSS, Atom, and JSON Feed with format conversion
