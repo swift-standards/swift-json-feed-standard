@@ -1,17 +1,6 @@
 // swift-tools-version: 6.4
 import PackageDescription
 
-extension String {
-    static let jsonFeedStandard: Self = "JSON Feed Standard"
-}
-
-extension Target.Dependency {
-    static var jsonFeedStandard: Self { .target(name: .jsonFeedStandard) }
-    static var ieee754: Self { .product(name: "IEEE 754", package: "swift-ieee-754") }
-    static var uriStandard: Self { .product(name: "URI Standard", package: "swift-uri-standard") }
-    static var rfc5322: Self { .product(name: "RFC 5322", package: "swift-rfc-5322") }
-}
-
 let package = Package(
     name: "swift-json-feed-standard",
     platforms: [
@@ -34,22 +23,17 @@ let package = Package(
     targets: [
         .target(
             name: "JSON Feed Standard",
-            dependencies: [.ieee754, .uriStandard, .rfc5322]
+            dependencies: [.product(name: "IEEE 754", package: "swift-ieee-754"), .product(name: "URI Standard", package: "swift-uri-standard"), .product(name: "RFC 5322", package: "swift-rfc-5322")]
         ),
         .testTarget(
             name: "JSON Feed Standard Tests",
             dependencies: [
-                "JSON Feed Standard"
+                .target(name: "JSON Feed Standard")
             ]
         ),
     ],
     swiftLanguageModes: [.v6]
 )
-
-extension String {
-    var tests: Self { self + " Tests" }
-    var foundation: Self { self + " Foundation" }
-}
 
 for target in package.targets where ![.system, .binary, .plugin, .macro].contains(target.type) {
     let ecosystem: [SwiftSetting] = [
