@@ -1,8 +1,8 @@
-import URI_Standard
+public import URI_Standard
 
 extension JSONFeed {
 
-    public struct Feed: Hashable, Sendable, Codable {
+    public struct Feed: Hashable, Sendable {
 
         public let version: String
 
@@ -34,6 +34,7 @@ extension JSONFeed {
 
         @_disfavoredOverload
         public init(
+            version: String = JSONFeed.Feed.currentVersion,
             title: String,
             homePageURL: URI? = nil,
             feedURL: URI? = nil,
@@ -48,7 +49,7 @@ extension JSONFeed {
             hubs: [Hub]? = nil,
             items: [Item] = []
         ) {
-            self.version = "https://jsonfeed.org/version/1.1"
+            self.version = version
             self.title = title
             self.homePageURL = homePageURL
             self.feedURL = feedURL
@@ -63,34 +64,12 @@ extension JSONFeed {
             self.hubs = hubs
             self.items = items
         }
-
-        public init(from decoder: any Decoder) throws {
-            let container = try decoder.container(keyedBy: CodingKeys.self)
-
-            version = try container.decode(String.self, forKey: .version)
-
-            guard
-                version == "https://jsonfeed.org/version/1.1"
-                    || version == "https://jsonfeed.org/version/1"
-            else {
-                throw Error.invalidVersion(
-                    description: "Expected version 1.1 or 1, got: \(version)"
-                )
-            }
-
-            title = try container.decode(String.self, forKey: .title)
-            homePageURL = try container.decodeIfPresent(URI.self, forKey: .homePageURL)
-            feedURL = try container.decodeIfPresent(URI.self, forKey: .feedURL)
-            description = try container.decodeIfPresent(String.self, forKey: .description)
-            userComment = try container.decodeIfPresent(String.self, forKey: .userComment)
-            nextURL = try container.decodeIfPresent(URI.self, forKey: .nextURL)
-            icon = try container.decodeIfPresent(URI.self, forKey: .icon)
-            favicon = try container.decodeIfPresent(URI.self, forKey: .favicon)
-            authors = try container.decodeIfPresent([Author].self, forKey: .authors)
-            language = try container.decodeIfPresent(String.self, forKey: .language)
-            expired = try container.decodeIfPresent(Bool.self, forKey: .expired)
-            hubs = try container.decodeIfPresent([Hub].self, forKey: .hubs)
-            items = try container.decode([Item].self, forKey: .items)
-        }
     }
+}
+
+extension JSONFeed.Feed {
+
+    public static let currentVersion = "https://jsonfeed.org/version/1.1"
+
+    public static let legacyVersion = "https://jsonfeed.org/version/1"
 }

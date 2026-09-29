@@ -3,38 +3,33 @@
 ![Development Status](https://img.shields.io/badge/status-active--development-blue.svg)
 [![CI](https://github.com/swift-standards/swift-json-feed-standard/workflows/CI/badge.svg)](https://github.com/swift-standards/swift-json-feed-standard/actions/workflows/ci.yml)
 
-Type-safe JSON Feed type definitions for Swift (Version 1.1 specification).
+Type-safe JSON Feed 1.1 type definitions for Swift.
 
 ## Overview
 
-swift-json-feed-standard provides complete JSON Feed 1.1 specification support with type-safe Swift types for representing JSON feed data structures.
+swift-json-feed-standard is a pure domain model of the JSON Feed 1.1 specification: `JSONFeed.Feed`, `JSONFeed.Item`, `JSONFeed.Author`, `JSONFeed.Hub` and `JSONFeed.Attachment`, with `RFC_3986.URI` for every URL element and `RFC_5322.Date` for every date element.
 
-For JSON feed generation with type-safe convenience APIs, see [swift-json-feed](https://github.com/swift-compositions/swift-json-feed).
+Apple Foundation bridging — the `Codable` conformances that read and write JSON Feed documents with their specified member names — lives in the separate `JSON Feed Foundation Integration` product.
 
-## Features
+## Products
 
-- **Complete JSON Feed 1.1 Support**: All required and optional feed and item elements per JSON Feed 1.1 specification
-- **Type Safety**: Compile-time validation with Hashable, Sendable, Codable conformance
-- **Validation**: Throwing initializers enforce JSON Feed requirements (items require contentHTML OR contentText)
-- **Swift 6.0 Concurrency**: Strict concurrency mode with complete Sendable conformance
+- `JSON Feed Standard` (module `JSON_Feed_Standard`): the domain model.
+- `JSON Feed Foundation Integration` (module `JSON_Feed_Foundation_Integration`): `Encodable`/`Decodable` conformances for the domain types.
 
 ## Installation
 
-Add swift-json-feed-standard to your Package.swift dependencies:
-
 ```swift
 dependencies: [
-    .package(url: "https://github.com/swift-standards/swift-json-feed-standard", from: "0.0.4")
+    .package(url: "https://github.com/swift-standards/swift-json-feed-standard", branch: "main")
 ]
 ```
-
-Then add the product to your target dependencies:
 
 ```swift
 .target(
     name: "YourTarget",
     dependencies: [
-        .product(name: "JSONFeed Types", package: "swift-json-feed-standard")
+        .product(name: "JSON Feed Standard", package: "swift-json-feed-standard"),
+        .product(name: "JSON Feed Foundation Integration", package: "swift-json-feed-standard"),
     ]
 )
 ```
@@ -42,40 +37,48 @@ Then add the product to your target dependencies:
 ## Quick Start
 
 ```swift
-import JSONFeed
+import JSON_Feed_Standard
+import RFC_5322
+import URI_Standard
 
-// Create a JSON feed with type-safe structures
 let feed = JSONFeed.Feed(
     title: "My Blog",
-    homePageURL: URL(string: "https://example.com")!,
+    homePageURL: try URI("https://example.com"),
     items: [
-        try! JSONFeed.Item(
+        try JSONFeed.Item(
             id: "1",
-            url: URL(string: "https://example.com/post1")!,
+            url: try URI("https://example.com/post1"),
             title: "First Post",
             contentHTML: "<p>Hello, world!</p>",
-            datePublished: Date()
+            datePublished: try RFC_5322.Date(year: 2025, month: 1, day: 1)
         )
     ]
 )
 
-print(feed.title)  // "My Blog"
-print(feed.items.count)  // 1
+feed.version  // "https://jsonfeed.org/version/1.1"
+feed.items.count  // 1
 ```
 
-Note: This package provides only the type definitions. For JSON generation and parsing, see [swift-json-feed](https://github.com/swift-compositions/swift-json-feed).
+An item must carry `contentHTML` or `contentText`; the initializer throws `JSONFeed.Error.itemRequiresContent` otherwise.
+
+## Reading and writing documents
+
+```swift
+import Foundation
+import JSON_Feed_Foundation_Integration
+import JSON_Feed_Standard
+
+let document = try JSONEncoder().encode(feed)
+let decoded = try JSONDecoder().decode(JSONFeed.Feed.self, from: document)
+```
 
 ## Related Packages
 
-- [swift-json-feed](https://github.com/swift-compositions/swift-json-feed): JSON feed generation with type-safe convenience APIs and ArrayBuilder support
-- [swift-rss-standard](https://github.com/swift-standards/swift-rss-standard): Type-safe RSS 2.0 feed type definitions
-- [swift-rfc-4287](https://github.com/swift-ietf/swift-rfc-4287): Type-safe Atom feed type definitions (RFC 4287)
-- [swift-syndication](https://github.com/coenttb/swift-syndication): Unified syndication API supporting RSS, Atom, and JSON Feed with format conversion
+- [swift-rss-standard](https://github.com/swift-standards/swift-rss-standard): RSS 2.0 type definitions
+- [swift-rfc-4287](https://github.com/swift-ietf/swift-rfc-4287): Atom type definitions (RFC 4287)
+- [swift-rfc-3986](https://github.com/swift-ietf/swift-rfc-3986): URI
+- [swift-rfc-5322](https://github.com/swift-ietf/swift-rfc-5322): Internet Message Format, including its date and time specification
 
 ## License
 
 This project is licensed under the Apache License 2.0. See LICENSE for details.
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.

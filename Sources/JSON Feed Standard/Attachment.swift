@@ -1,8 +1,8 @@
-import URI_Standard
+public import URI_Standard
 
 extension JSONFeed {
 
-    public struct Attachment: Hashable, Sendable, Codable {
+    public struct Attachment: Hashable, Sendable {
 
         public let url: URI
 
@@ -28,7 +28,6 @@ extension JSONFeed {
             self.durationInSeconds = durationInSeconds
         }
 
-        @available(macOS 13, iOS 16, tvOS 16, watchOS 9, *)
         public init(
             url: URI,
             mimeType: String,
@@ -47,7 +46,6 @@ extension JSONFeed {
 
 extension JSONFeed.Attachment {
 
-    @available(macOS 13, iOS 16, tvOS 16, watchOS 9, *)
     public var duration: Swift.Duration? {
         guard let seconds = durationInSeconds else { return nil }
         return .seconds(seconds)

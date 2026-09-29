@@ -1,9 +1,9 @@
-import RFC_5322
-import URI_Standard
+public import RFC_5322
+public import URI_Standard
 
 extension JSONFeed {
 
-    public struct Item: Hashable, Sendable, Codable {
+    public struct Item: Hashable, Sendable {
 
         public let id: String
 
@@ -75,35 +75,6 @@ extension JSONFeed {
             self.tags = tags
             self.language = language
             self.attachments = attachments
-        }
-
-        public init(from decoder: any Decoder) throws {
-            let container = try decoder.container(keyedBy: CodingKeys.self)
-
-            id = try container.decode(String.self, forKey: .id)
-            url = try container.decodeIfPresent(URI.self, forKey: .url)
-            externalURL = try container.decodeIfPresent(URI.self, forKey: .externalURL)
-            title = try container.decodeIfPresent(String.self, forKey: .title)
-            contentHTML = try container.decodeIfPresent(String.self, forKey: .contentHTML)
-            contentText = try container.decodeIfPresent(String.self, forKey: .contentText)
-            summary = try container.decodeIfPresent(String.self, forKey: .summary)
-            image = try container.decodeIfPresent(URI.self, forKey: .image)
-            bannerImage = try container.decodeIfPresent(URI.self, forKey: .bannerImage)
-            datePublished = try container.decodeIfPresent(
-                RFC_5322.Date.self,
-                forKey: .datePublished
-            )
-            dateModified = try container.decodeIfPresent(RFC_5322.Date.self, forKey: .dateModified)
-            authors = try container.decodeIfPresent([Author].self, forKey: .authors)
-            tags = try container.decodeIfPresent([String].self, forKey: .tags)
-            language = try container.decodeIfPresent(String.self, forKey: .language)
-            attachments = try container.decodeIfPresent([Attachment].self, forKey: .attachments)
-
-            guard contentHTML != nil || contentText != nil else {
-                throw Error.itemRequiresContent(
-                    description: "Item must have either contentHTML or contentText"
-                )
-            }
         }
     }
 }

@@ -13,22 +13,56 @@ let package = Package(
         .library(
             name: "JSON Feed Standard",
             targets: ["JSON Feed Standard"]
-        )
+        ),
+        .library(
+            name: "JSON Feed Foundation Integration",
+            targets: ["JSON Feed Foundation Integration"]
+        ),
     ],
     dependencies: [
-        .package(url: "https://github.com/swift-ieee/swift-ieee-754.git", branch: "main"),
         .package(url: "https://github.com/swift-standards/swift-uri-standard.git", branch: "main"),
+        .package(url: "https://github.com/swift-ietf/swift-rfc-3986.git", branch: "main"),
         .package(url: "https://github.com/swift-ietf/swift-rfc-5322.git", branch: "main"),
     ],
     targets: [
         .target(
             name: "JSON Feed Standard",
-            dependencies: [.product(name: "IEEE 754", package: "swift-ieee-754"), .product(name: "URI Standard", package: "swift-uri-standard"), .product(name: "RFC 5322", package: "swift-rfc-5322")]
+            dependencies: [
+                .product(name: "URI Standard", package: "swift-uri-standard"),
+                .product(name: "RFC 5322", package: "swift-rfc-5322"),
+            ]
+        ),
+        .target(
+            name: "JSON Feed Foundation Integration",
+            dependencies: [
+                .target(name: "JSON Feed Standard"),
+                .product(name: "URI Standard", package: "swift-uri-standard"),
+                .product(name: "RFC 5322", package: "swift-rfc-5322"),
+                .product(
+                    name: "RFC 3986 Foundation Integration",
+                    package: "swift-rfc-3986"
+                ),
+                .product(
+                    name: "RFC 5322 Foundation Integration",
+                    package: "swift-rfc-5322"
+                ),
+            ]
         ),
         .testTarget(
             name: "JSON Feed Standard Tests",
             dependencies: [
-                .target(name: "JSON Feed Standard")
+                .target(name: "JSON Feed Standard"),
+                .product(name: "URI Standard", package: "swift-uri-standard"),
+                .product(name: "RFC 5322", package: "swift-rfc-5322"),
+            ]
+        ),
+        .testTarget(
+            name: "JSON Feed Foundation Integration Tests",
+            dependencies: [
+                .target(name: "JSON Feed Standard"),
+                .target(name: "JSON Feed Foundation Integration"),
+                .product(name: "URI Standard", package: "swift-uri-standard"),
+                .product(name: "RFC 5322", package: "swift-rfc-5322"),
             ]
         ),
     ],

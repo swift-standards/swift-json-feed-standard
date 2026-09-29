@@ -1,8 +1,8 @@
-import URI_Standard
+public import URI_Standard
 
 extension JSONFeed {
 
-    public struct Author: Hashable, Sendable, Codable {
+    public struct Author: Hashable, Sendable {
 
         public let name: String?
 

@@ -3,3 +3,4 @@ builder:
   configs:
   - documentation_targets:
     - JSON Feed Standard
+    - JSON Feed Foundation Integration

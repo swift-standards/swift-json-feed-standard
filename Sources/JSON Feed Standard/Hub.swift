@@ -1,8 +1,8 @@
-import URI_Standard
+public import URI_Standard
 
 extension JSONFeed {
 
-    public struct Hub: Hashable, Sendable, Codable {
+    public struct Hub: Hashable, Sendable {
 
         public let type: String
 
