@@ -33,7 +33,7 @@ extension JSONFeed {
             mimeType: String,
             title: String? = nil,
             sizeInBytes: Int? = nil,
-            duration: Swift.Duration
+            duration: Swift::Duration
         ) {
             self.url = url
             self.mimeType = mimeType
@@ -46,7 +46,7 @@ extension JSONFeed {
 
 extension JSONFeed.Attachment {
 
-    public var duration: Swift.Duration? {
+    public var duration: Swift::Duration? {
         guard let seconds = durationInSeconds else { return nil }
         return .seconds(seconds)
     }

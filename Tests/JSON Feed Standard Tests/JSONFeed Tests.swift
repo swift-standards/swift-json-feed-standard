@@ -194,7 +194,7 @@ struct `JSONFeed Tests` {
         )
 
         #expect(attachment.durationInSeconds == 300)
-        #expect(attachment.duration == Swift.Duration.seconds(300))
+        #expect(attachment.duration == Swift::Duration.seconds(300))
     }
 
     @Test

@@ -1,6 +1,6 @@
 extension JSONFeed {
 
-    public enum Error: Swift.Error, Hashable, Sendable {
+    public enum Error: Swift::Error, Hashable, Sendable {
         case itemRequiresContent(description: String)
         case invalidVersion(description: String)
     }
