@@ -1,8 +1,7 @@
+import JSON_Feed_Standard
 import RFC_5322
 import Testing
 import URI_Standard
-
-import JSON_Feed_Standard
 
 @Suite
 struct `JSONFeed Tests` {

@@ -68,9 +68,11 @@ struct `JSONFeed+Codable Tests` {
             }
             """
 
-        #expect(throws: JSONFeed.Error.invalidVersion(
-            description: "Expected version 1.1 or 1, got: https://jsonfeed.org/version/2"
-        )) {
+        #expect(
+            throws: JSONFeed.Error.invalidVersion(
+                description: "Expected version 1.1 or 1, got: https://jsonfeed.org/version/2"
+            )
+        ) {
             _ = try JSONDecoder().decode(JSONFeed.Feed.self, from: Data(document.utf8))
         }
     }

@@ -1,5 +1,5 @@
-import RFC_3986_Foundation_Integration
 public import JSON_Feed_Standard
+import RFC_3986_Foundation_Integration
 import URI_Standard
 
 extension JSONFeed.Attachment: Encodable, Decodable {
