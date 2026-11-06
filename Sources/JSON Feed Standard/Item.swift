@@ -1,4 +1,5 @@
 public import RFC_5322
+public import RFC_5646
 public import URI_Standard
 
 extension JSONFeed {
@@ -31,7 +32,7 @@ extension JSONFeed {
 
         public let tags: [String]?
 
-        public let language: String?
+        public let language: RFC_5646.LanguageTag?
 
         public let attachments: [Attachment]?
 
@@ -50,7 +51,7 @@ extension JSONFeed {
             dateModified: RFC_5322.Date? = nil,
             authors: [Author]? = nil,
             tags: [String]? = nil,
-            language: String? = nil,
+            language: RFC_5646.LanguageTag? = nil,
             attachments: [Attachment]? = nil
         ) throws(JSONFeed.Error) {
 

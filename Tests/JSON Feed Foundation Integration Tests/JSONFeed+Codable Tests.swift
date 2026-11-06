@@ -2,6 +2,7 @@ import Foundation
 import JSON_Feed_Foundation_Integration
 import JSON_Feed_Standard
 import RFC_5322
+import RFC_9110
 import Testing
 import URI_Standard
 
@@ -96,7 +97,7 @@ struct `JSONFeed+Codable Tests` {
     func `an attachment codes its duration in seconds`() throws {
         let attachment = JSONFeed.Attachment(
             url: try URI("https://example.com/audio.mp3"),
-            mimeType: "audio/mpeg",
+            mimeType: .mp3,
             duration: .seconds(180)
         )
 

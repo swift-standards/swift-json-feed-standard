@@ -1,5 +1,6 @@
 public import JSON_Feed_Standard
 import RFC_3986_Foundation_Integration
+import RFC_5646
 import URI_Standard
 
 extension JSONFeed.Feed: Encodable, Decodable {
@@ -24,7 +25,7 @@ extension JSONFeed.Feed: Encodable, Decodable {
     public init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        let version = try container.decode(String.self, forKey: .version)
+        let version = try container.decode(URI.self, forKey: .version)
 
         guard
             version == JSONFeed.Feed.currentVersion || version == JSONFeed.Feed.legacyVersion
@@ -45,7 +46,7 @@ extension JSONFeed.Feed: Encodable, Decodable {
             icon: try container.decodeIfPresent(URI.self, forKey: .icon),
             favicon: try container.decodeIfPresent(URI.self, forKey: .favicon),
             authors: try container.decodeIfPresent([JSONFeed.Author].self, forKey: .authors),
-            language: try container.decodeIfPresent(String.self, forKey: .language),
+            language: try? container.decodeIfPresent(RFC_5646.LanguageTag.self, forKey: .language),
             expired: try container.decodeIfPresent(Bool.self, forKey: .expired),
             hubs: try container.decodeIfPresent([JSONFeed.Hub].self, forKey: .hubs),
             items: try container.decode([JSONFeed.Item].self, forKey: .items)

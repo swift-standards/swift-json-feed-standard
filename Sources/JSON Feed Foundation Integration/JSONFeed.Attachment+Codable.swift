@@ -1,5 +1,6 @@
 public import JSON_Feed_Standard
 import RFC_3986_Foundation_Integration
+import RFC_9110
 import URI_Standard
 
 extension JSONFeed.Attachment: Encodable, Decodable {
@@ -17,7 +18,7 @@ extension JSONFeed.Attachment: Encodable, Decodable {
 
         self.init(
             url: try container.decode(URI.self, forKey: .url),
-            mimeType: try container.decode(String.self, forKey: .mimeType),
+            mimeType: try container.decode(RFC_9110.MediaType.self, forKey: .mimeType),
             title: try container.decodeIfPresent(String.self, forKey: .title),
             sizeInBytes: try container.decodeIfPresent(Int.self, forKey: .sizeInBytes),
             durationInSeconds: try container.decodeIfPresent(

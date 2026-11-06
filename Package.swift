@@ -24,6 +24,8 @@ let package = Package(
         .package(url: "https://github.com/swift-standards/swift-uri-standard.git", branch: "main"),
         .package(url: "https://github.com/swift-ietf/swift-rfc-3986.git", branch: "main"),
         .package(url: "https://github.com/swift-ietf/swift-rfc-5322.git", branch: "main"),
+        .package(url: "https://github.com/swift-ietf/swift-rfc-5646.git", branch: "main"),
+        .package(url: "https://github.com/swift-ietf/swift-rfc-9110.git", branch: "main"),
     ],
     targets: [
         .target(
@@ -31,6 +33,8 @@ let package = Package(
             dependencies: [
                 .product(name: "URI Standard", package: "swift-uri-standard"),
                 .product(name: "RFC 5322", package: "swift-rfc-5322"),
+                .product(name: "RFC 5646", package: "swift-rfc-5646"),
+                .product(name: "RFC 9110", package: "swift-rfc-9110"),
             ]
         ),
         .target(
@@ -39,6 +43,8 @@ let package = Package(
                 .target(name: "JSON Feed Standard"),
                 .product(name: "URI Standard", package: "swift-uri-standard"),
                 .product(name: "RFC 5322", package: "swift-rfc-5322"),
+                .product(name: "RFC 5646", package: "swift-rfc-5646"),
+                .product(name: "RFC 9110", package: "swift-rfc-9110"),
                 .product(
                     name: "RFC 3986 Foundation Integration",
                     package: "swift-rfc-3986"
@@ -55,6 +61,8 @@ let package = Package(
                 .target(name: "JSON Feed Standard"),
                 .product(name: "URI Standard", package: "swift-uri-standard"),
                 .product(name: "RFC 5322", package: "swift-rfc-5322"),
+                .product(name: "RFC 5646", package: "swift-rfc-5646"),
+                .product(name: "RFC 9110", package: "swift-rfc-9110"),
             ]
         ),
         .testTarget(
@@ -64,6 +72,7 @@ let package = Package(
                 .target(name: "JSON Feed Foundation Integration"),
                 .product(name: "URI Standard", package: "swift-uri-standard"),
                 .product(name: "RFC 5322", package: "swift-rfc-5322"),
+                .product(name: "RFC 9110", package: "swift-rfc-9110"),
             ]
         ),
     ],

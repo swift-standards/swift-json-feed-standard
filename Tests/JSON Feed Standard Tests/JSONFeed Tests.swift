@@ -1,5 +1,7 @@
 import JSON_Feed_Standard
 import RFC_5322
+import RFC_5646
+import RFC_9110
 import Testing
 import URI_Standard
 
@@ -33,7 +35,7 @@ struct `JSONFeed Tests` {
                     avatar: try URI("https://johndoe.com/avatar.jpg")
                 )
             ],
-            language: "en-US",
+            language: try RFC_5646.LanguageTag("en-US"),
             expired: false,
             hubs: [
                 JSONFeed.Hub(
@@ -47,7 +49,7 @@ struct `JSONFeed Tests` {
         #expect(feed.feedURL?.value == "https://example.com/feed.json")
         #expect(feed.description == "A test feed")
         #expect(feed.userComment == "This is a test")
-        #expect(feed.language == "en-US")
+        #expect(feed.language?.value == "en-US")
         #expect(feed.expired == false)
         #expect(feed.authors?.count == 1)
         #expect(feed.hubs?.count == 1)
@@ -122,11 +124,11 @@ struct `JSONFeed Tests` {
                 JSONFeed.Author(name: "Jane Doe")
             ],
             tags: ["test", "example"],
-            language: "en",
+            language: try RFC_5646.LanguageTag("en"),
             attachments: [
                 JSONFeed.Attachment(
                     url: try URI("https://example.com/file.mp3"),
-                    mimeType: "audio/mpeg",
+                    mimeType: .mp3,
                     title: "Audio File",
                     sizeInBytes: 1_024_000,
                     durationInSeconds: 180
@@ -142,7 +144,7 @@ struct `JSONFeed Tests` {
         #expect(item.dateModified == date)
         #expect(item.authors?.count == 1)
         #expect(item.tags?.count == 2)
-        #expect(item.language == "en")
+        #expect(item.language?.value == "en")
         #expect(item.attachments?.count == 1)
     }
 
@@ -171,14 +173,14 @@ struct `JSONFeed Tests` {
     func `an attachment describes an enclosed file`() throws {
         let attachment = JSONFeed.Attachment(
             url: try URI("https://example.com/video.mp4"),
-            mimeType: "video/mp4",
+            mimeType: .mp4,
             title: "Video",
             sizeInBytes: 5_242_880,
             durationInSeconds: 300
         )
 
         #expect(attachment.url.value == "https://example.com/video.mp4")
-        #expect(attachment.mimeType == "video/mp4")
+        #expect(attachment.mimeType.value == "video/mp4")
         #expect(attachment.title == "Video")
         #expect(attachment.sizeInBytes == 5_242_880)
         #expect(attachment.durationInSeconds == 300)
@@ -188,7 +190,7 @@ struct `JSONFeed Tests` {
     func `an attachment states its duration as a Duration`() throws {
         let attachment = JSONFeed.Attachment(
             url: try URI("https://example.com/audio.mp3"),
-            mimeType: "audio/mpeg",
+            mimeType: .mp3,
             duration: .seconds(300)
         )
 

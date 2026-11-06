@@ -2,6 +2,7 @@ public import JSON_Feed_Standard
 import RFC_3986_Foundation_Integration
 import RFC_5322
 import RFC_5322_Foundation_Integration
+import RFC_5646
 import URI_Standard
 
 extension JSONFeed.Item: Encodable, Decodable {
@@ -47,7 +48,7 @@ extension JSONFeed.Item: Encodable, Decodable {
             ),
             authors: try container.decodeIfPresent([JSONFeed.Author].self, forKey: .authors),
             tags: try container.decodeIfPresent([String].self, forKey: .tags),
-            language: try container.decodeIfPresent(String.self, forKey: .language),
+            language: try? container.decodeIfPresent(RFC_5646.LanguageTag.self, forKey: .language),
             attachments: try container.decodeIfPresent(
                 [JSONFeed.Attachment].self,
                 forKey: .attachments

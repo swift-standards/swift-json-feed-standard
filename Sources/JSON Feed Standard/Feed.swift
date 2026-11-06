@@ -1,10 +1,11 @@
+public import RFC_5646
 public import URI_Standard
 
 extension JSONFeed {
 
     public struct Feed: Hashable, Sendable {
 
-        public let version: String
+        public let version: URI
 
         public let title: String
 
@@ -24,7 +25,7 @@ extension JSONFeed {
 
         public let authors: [Author]?
 
-        public let language: String?
+        public let language: RFC_5646.LanguageTag?
 
         public let expired: Bool?
 
@@ -34,7 +35,7 @@ extension JSONFeed {
 
         @_disfavoredOverload
         public init(
-            version: String = JSONFeed.Feed.currentVersion,
+            version: URI = JSONFeed.Feed.currentVersion,
             title: String,
             homePageURL: URI? = nil,
             feedURL: URI? = nil,
@@ -44,7 +45,7 @@ extension JSONFeed {
             icon: URI? = nil,
             favicon: URI? = nil,
             authors: [Author]? = nil,
-            language: String? = nil,
+            language: RFC_5646.LanguageTag? = nil,
             expired: Bool? = nil,
             hubs: [Hub]? = nil,
             items: [Item] = []
@@ -69,7 +70,7 @@ extension JSONFeed {
 
 extension JSONFeed.Feed {
 
-    public static let currentVersion = "https://jsonfeed.org/version/1.1"
+    public static let currentVersion = URI(unchecked: "https://jsonfeed.org/version/1.1")
 
-    public static let legacyVersion = "https://jsonfeed.org/version/1"
+    public static let legacyVersion = URI(unchecked: "https://jsonfeed.org/version/1")
 }
