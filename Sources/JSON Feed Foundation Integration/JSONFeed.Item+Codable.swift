@@ -1,4 +1,5 @@
 public import JSON_Feed_Standard
+import RFC_3339
 import RFC_3986_Foundation_Integration
 import RFC_5322
 import RFC_5322_Foundation_Integration
@@ -38,12 +39,14 @@ extension JSONFeed.Item: Encodable, Decodable {
             summary: try container.decodeIfPresent(String.self, forKey: .summary),
             image: try container.decodeIfPresent(URI.self, forKey: .image),
             bannerImage: try container.decodeIfPresent(URI.self, forKey: .bannerImage),
-            datePublished: try container.decodeIfPresent(
-                RFC_5322.Date.self,
+            datePublished: try Self.date(
+                container.decodeIfPresent(String.self, forKey: .datePublished),
+                in: container,
                 forKey: .datePublished
             ),
-            dateModified: try container.decodeIfPresent(
-                RFC_5322.Date.self,
+            dateModified: try Self.date(
+                container.decodeIfPresent(String.self, forKey: .dateModified),
+                in: container,
                 forKey: .dateModified
             ),
             authors: try container.decodeIfPresent([JSONFeed.Author].self, forKey: .authors),
@@ -68,11 +71,57 @@ extension JSONFeed.Item: Encodable, Decodable {
         try container.encodeIfPresent(summary, forKey: .summary)
         try container.encodeIfPresent(image, forKey: .image)
         try container.encodeIfPresent(bannerImage, forKey: .bannerImage)
-        try container.encodeIfPresent(datePublished, forKey: .datePublished)
-        try container.encodeIfPresent(dateModified, forKey: .dateModified)
+        try container.encodeIfPresent(datePublished?.rfc3339.description, forKey: .datePublished)
+        try container.encodeIfPresent(dateModified?.rfc3339.description, forKey: .dateModified)
         try container.encodeIfPresent(authors, forKey: .authors)
         try container.encodeIfPresent(tags, forKey: .tags)
         try container.encodeIfPresent(language, forKey: .language)
         try container.encodeIfPresent(attachments, forKey: .attachments)
+    }
+}
+
+extension JSONFeed.Item {
+
+    fileprivate static func date(
+        _ string: String?,
+        in container: KeyedDecodingContainer<CodingKeys>,
+        forKey key: CodingKeys
+    ) throws(DecodingError) -> RFC_5322.Date? {
+        guard let string else {
+            return nil
+        }
+        do throws(RFC_3339.DateTime.Error) {
+            return RFC_5322.Date(rfc3339: try RFC_3339.DateTime(string))
+        } catch {
+            throw DecodingError.dataCorruptedError(
+                forKey: key,
+                in: container,
+                debugDescription: "Expected an RFC 3339 date, got: \(string)"
+            )
+        }
+    }
+}
+
+extension RFC_5322.DateTime {
+
+    fileprivate init(rfc3339 dateTime: RFC_3339.DateTime) {
+        let offset = dateTime.offset.seconds
+        self.init(
+            secondsSinceEpoch: Int(dateTime.time.secondsSinceEpoch) - offset,
+            timezoneOffsetSeconds: offset
+        )
+    }
+
+    fileprivate var rfc3339: RFC_3339.DateTime {
+        let offsetSeconds = timezoneOffsetSeconds
+        do throws(RFC_3339.Offset.Error) {
+            let offset = try RFC_3339.Offset(seconds: offsetSeconds)
+            return RFC_3339.DateTime(
+                time: Gregorian.DateTime(secondsSinceEpoch: secondsSinceEpoch + offsetSeconds),
+                offset: offset
+            )
+        } catch {
+            return RFC_3339.DateTime(time: time, offset: .utc)
+        }
     }
 }

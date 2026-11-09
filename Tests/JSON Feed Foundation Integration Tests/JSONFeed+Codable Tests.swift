@@ -107,4 +107,60 @@ struct `JSONFeed+Codable Tests` {
         #expect(decoded == attachment)
         #expect(decoded.durationInSeconds == 180)
     }
+
+    @Test
+    func `an item decodes RFC 3339 dates as the specification writes them`() throws {
+        let document = """
+            {
+              "id": "2347259",
+              "url": "https://example.org/2347259",
+              "content_text": "Cats are neat.",
+              "date_published": "2010-02-07T14:04:00-05:00",
+              "date_modified": "2010-02-07T19:04:00.5Z"
+            }
+            """
+
+        let item = try JSONDecoder().decode(JSONFeed.Item.self, from: Data(document.utf8))
+
+        #expect(item.datePublished?.secondsSinceEpoch == 1_265_569_440)
+        #expect(item.datePublished?.timezoneOffsetSeconds == -18_000)
+        #expect(item.dateModified?.secondsSinceEpoch == 1_265_569_440)
+    }
+
+    @Test
+    func `an item encodes its dates in RFC 3339`() throws {
+        let item = try JSONFeed.Item(
+            id: "1",
+            contentText: "Hello",
+            datePublished: try RFC_5322.Date(year: 2025, month: 1, day: 1),
+            dateModified: try RFC_5322.Date(
+                year: 2025,
+                month: 1,
+                day: 2,
+                hour: 9,
+                minute: 30,
+                timezoneOffsetSeconds: 3_600
+            )
+        )
+
+        let object = try JSONSerialization.jsonObject(with: JSONEncoder().encode(item)) as? [String: Any]
+
+        #expect(object?["date_published"] as? String == "2025-01-01T00:00:00Z")
+        #expect(object?["date_modified"] as? String == "2025-01-02T09:30:00+01:00")
+    }
+
+    @Test
+    func `an item with an RFC 5322 date is rejected while decoding`() throws {
+        let document = """
+            {
+              "id": "1",
+              "content_text": "Hello",
+              "date_published": "Wed, 01 Jan 2025 00:00:00 +0000"
+            }
+            """
+
+        #expect(throws: DecodingError.self) {
+            _ = try JSONDecoder().decode(JSONFeed.Item.self, from: Data(document.utf8))
+        }
+    }
 }
