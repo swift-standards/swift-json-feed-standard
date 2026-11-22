@@ -35,7 +35,7 @@ struct `JSONFeed Tests` {
                     avatar: try URI("https://johndoe.com/avatar.jpg")
                 )
             ],
-            language: try RFC_5646.LanguageTag("en-US"),
+            language: try IETF.RFC.`5646`.LanguageTag("en-US"),
             expired: false,
             hubs: [
                 JSONFeed.Hub(
@@ -107,7 +107,7 @@ struct `JSONFeed Tests` {
 
     @Test
     func `an item carries every optional element`() throws {
-        let date = try RFC_5322.Date(year: 2025, month: 1, day: 1)
+        let date = try IETF.RFC.`5322`.Date(year: 2025, month: 1, day: 1)
         let item = try JSONFeed.Item(
             id: "5",
             url: try URI("https://example.com/post5"),
@@ -124,7 +124,7 @@ struct `JSONFeed Tests` {
                 JSONFeed.Author(name: "Jane Doe")
             ],
             tags: ["test", "example"],
-            language: try RFC_5646.LanguageTag("en"),
+            language: try IETF.RFC.`5646`.LanguageTag("en"),
             attachments: [
                 JSONFeed.Attachment(
                     url: try URI("https://example.com/file.mp3"),

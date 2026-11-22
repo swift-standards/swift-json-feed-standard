@@ -18,7 +18,7 @@ extension JSONFeed.Attachment: Encodable, Decodable {
 
         self.init(
             url: try container.decode(URI.self, forKey: .url),
-            mimeType: try container.decode(RFC_9110.MediaType.self, forKey: .mimeType),
+            mimeType: try container.decode(IETF.RFC.`9110`.MediaType.self, forKey: .mimeType),
             title: try container.decodeIfPresent(String.self, forKey: .title),
             sizeInBytes: try container.decodeIfPresent(Int.self, forKey: .sizeInBytes),
             durationInSeconds: try container.decodeIfPresent(

@@ -24,15 +24,15 @@ extension JSONFeed {
 
         public let bannerImage: URI?
 
-        public let datePublished: RFC_5322.Date?
+        public let datePublished: IETF.RFC.`5322`.Date?
 
-        public let dateModified: RFC_5322.Date?
+        public let dateModified: IETF.RFC.`5322`.Date?
 
         public let authors: [Author]?
 
         public let tags: [String]?
 
-        public let language: RFC_5646.LanguageTag?
+        public let language: IETF.RFC.`5646`.LanguageTag?
 
         public let attachments: [Attachment]?
 
@@ -47,11 +47,11 @@ extension JSONFeed {
             summary: String? = nil,
             image: URI? = nil,
             bannerImage: URI? = nil,
-            datePublished: RFC_5322.Date? = nil,
-            dateModified: RFC_5322.Date? = nil,
+            datePublished: IETF.RFC.`5322`.Date? = nil,
+            dateModified: IETF.RFC.`5322`.Date? = nil,
             authors: [Author]? = nil,
             tags: [String]? = nil,
-            language: RFC_5646.LanguageTag? = nil,
+            language: IETF.RFC.`5646`.LanguageTag? = nil,
             attachments: [Attachment]? = nil
         ) throws(JSONFeed.Error) {
 

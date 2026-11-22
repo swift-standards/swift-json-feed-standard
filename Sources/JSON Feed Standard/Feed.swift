@@ -25,7 +25,7 @@ extension JSONFeed {
 
         public let authors: [Author]?
 
-        public let language: RFC_5646.LanguageTag?
+        public let language: IETF.RFC.`5646`.LanguageTag?
 
         public let expired: Bool?
 
@@ -45,7 +45,7 @@ extension JSONFeed {
             icon: URI? = nil,
             favicon: URI? = nil,
             authors: [Author]? = nil,
-            language: RFC_5646.LanguageTag? = nil,
+            language: IETF.RFC.`5646`.LanguageTag? = nil,
             expired: Bool? = nil,
             hubs: [Hub]? = nil,
             items: [Item] = []

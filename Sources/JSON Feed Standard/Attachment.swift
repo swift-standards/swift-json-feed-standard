@@ -7,7 +7,7 @@ extension JSONFeed {
 
         public let url: URI
 
-        public let mimeType: RFC_9110.MediaType
+        public let mimeType: IETF.RFC.`9110`.MediaType
 
         public let title: String?
 
@@ -17,7 +17,7 @@ extension JSONFeed {
 
         public init(
             url: URI,
-            mimeType: RFC_9110.MediaType,
+            mimeType: IETF.RFC.`9110`.MediaType,
             title: String? = nil,
             sizeInBytes: Int? = nil,
             durationInSeconds: Int? = nil
@@ -31,7 +31,7 @@ extension JSONFeed {
 
         public init(
             url: URI,
-            mimeType: RFC_9110.MediaType,
+            mimeType: IETF.RFC.`9110`.MediaType,
             title: String? = nil,
             sizeInBytes: Int? = nil,
             duration: Swift::Duration

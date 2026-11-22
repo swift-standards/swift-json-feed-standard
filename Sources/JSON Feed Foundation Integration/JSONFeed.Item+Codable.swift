@@ -51,7 +51,7 @@ extension JSONFeed.Item: Encodable, Decodable {
             ),
             authors: try container.decodeIfPresent([JSONFeed.Author].self, forKey: .authors),
             tags: try container.decodeIfPresent([String].self, forKey: .tags),
-            language: try? container.decodeIfPresent(RFC_5646.LanguageTag.self, forKey: .language),
+            language: try? container.decodeIfPresent(IETF.RFC.`5646`.LanguageTag.self, forKey: .language),
             attachments: try container.decodeIfPresent(
                 [JSONFeed.Attachment].self,
                 forKey: .attachments
@@ -86,12 +86,12 @@ extension JSONFeed.Item {
         _ string: String?,
         in container: KeyedDecodingContainer<CodingKeys>,
         forKey key: CodingKeys
-    ) throws(DecodingError) -> RFC_5322.Date? {
+    ) throws(DecodingError) -> IETF.RFC.`5322`.Date? {
         guard let string else {
             return nil
         }
-        do throws(RFC_3339.DateTime.Error) {
-            return RFC_5322.Date(rfc3339: try RFC_3339.DateTime(string))
+        do throws(IETF.RFC.`3339`.DateTime.Error) {
+            return IETF.RFC.`5322`.Date(rfc3339: try IETF.RFC.`3339`.DateTime(string))
         } catch {
             throw DecodingError.dataCorruptedError(
                 forKey: key,
@@ -102,9 +102,9 @@ extension JSONFeed.Item {
     }
 }
 
-extension RFC_5322.DateTime {
+extension IETF.RFC.`5322`.DateTime {
 
-    fileprivate init(rfc3339 dateTime: RFC_3339.DateTime) {
+    fileprivate init(rfc3339 dateTime: IETF.RFC.`3339`.DateTime) {
         let offset = dateTime.offset.seconds
         self.init(
             secondsSinceEpoch: Int(dateTime.time.secondsSinceEpoch) - offset,
@@ -112,16 +112,16 @@ extension RFC_5322.DateTime {
         )
     }
 
-    fileprivate var rfc3339: RFC_3339.DateTime {
+    fileprivate var rfc3339: IETF.RFC.`3339`.DateTime {
         let offsetSeconds = timezoneOffsetSeconds
-        do throws(RFC_3339.Offset.Error) {
-            let offset = try RFC_3339.Offset(seconds: offsetSeconds)
-            return RFC_3339.DateTime(
+        do throws(IETF.RFC.`3339`.Offset.Error) {
+            let offset = try IETF.RFC.`3339`.Offset(seconds: offsetSeconds)
+            return IETF.RFC.`3339`.DateTime(
                 time: Gregorian.DateTime(secondsSinceEpoch: secondsSinceEpoch + offsetSeconds),
                 offset: offset
             )
         } catch {
-            return RFC_3339.DateTime(time: time, offset: .utc)
+            return IETF.RFC.`3339`.DateTime(time: time, offset: .utc)
         }
     }
 }

@@ -22,7 +22,7 @@ struct `JSONFeed+Codable Tests` {
                     url: try URI("https://example.com/post1"),
                     title: "First Post",
                     contentHTML: "<p>Hello, world!</p>",
-                    datePublished: try RFC_5322.Date(year: 2025, month: 1, day: 1)
+                    datePublished: try IETF.RFC.`5322`.Date(year: 2025, month: 1, day: 1)
                 )
             ]
         )
@@ -132,8 +132,8 @@ struct `JSONFeed+Codable Tests` {
         let item = try JSONFeed.Item(
             id: "1",
             contentText: "Hello",
-            datePublished: try RFC_5322.Date(year: 2025, month: 1, day: 1),
-            dateModified: try RFC_5322.Date(
+            datePublished: try IETF.RFC.`5322`.Date(year: 2025, month: 1, day: 1),
+            dateModified: try IETF.RFC.`5322`.Date(
                 year: 2025,
                 month: 1,
                 day: 2,
