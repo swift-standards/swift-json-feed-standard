@@ -35,7 +35,7 @@ struct `JSONFeed Tests` {
                     avatar: try URI("https://johndoe.com/avatar.jpg")
                 )
             ],
-            language: try IETF.RFC.`5646`.LanguageTag("en-US"),
+            language: try IETF.RFC.`5646`.Tag("en-US"),
             expired: false,
             hubs: [
                 JSONFeed.Hub(
@@ -124,7 +124,7 @@ struct `JSONFeed Tests` {
                 JSONFeed.Author(name: "Jane Doe")
             ],
             tags: ["test", "example"],
-            language: try IETF.RFC.`5646`.LanguageTag("en"),
+            language: try IETF.RFC.`5646`.Tag("en"),
             attachments: [
                 JSONFeed.Attachment(
                     url: try URI("https://example.com/file.mp3"),

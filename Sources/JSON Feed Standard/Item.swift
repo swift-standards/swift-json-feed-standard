@@ -32,7 +32,7 @@ extension JSONFeed {
 
         public let tags: [String]?
 
-        public let language: IETF.RFC.`5646`.LanguageTag?
+        public let language: IETF.RFC.`5646`.Tag?
 
         public let attachments: [Attachment]?
 
@@ -51,7 +51,7 @@ extension JSONFeed {
             dateModified: IETF.RFC.`5322`.Date? = nil,
             authors: [Author]? = nil,
             tags: [String]? = nil,
-            language: IETF.RFC.`5646`.LanguageTag? = nil,
+            language: IETF.RFC.`5646`.Tag? = nil,
             attachments: [Attachment]? = nil
         ) throws(JSONFeed.Error) {
 

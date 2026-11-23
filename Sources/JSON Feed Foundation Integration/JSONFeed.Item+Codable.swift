@@ -51,7 +51,7 @@ extension JSONFeed.Item: Encodable, Decodable {
             ),
             authors: try container.decodeIfPresent([JSONFeed.Author].self, forKey: .authors),
             tags: try container.decodeIfPresent([String].self, forKey: .tags),
-            language: try? container.decodeIfPresent(IETF.RFC.`5646`.LanguageTag.self, forKey: .language),
+            language: try? container.decodeIfPresent(IETF.RFC.`5646`.Tag.self, forKey: .language),
             attachments: try container.decodeIfPresent(
                 [JSONFeed.Attachment].self,
                 forKey: .attachments

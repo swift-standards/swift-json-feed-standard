@@ -46,7 +46,7 @@ extension JSONFeed.Feed: Encodable, Decodable {
             icon: try container.decodeIfPresent(URI.self, forKey: .icon),
             favicon: try container.decodeIfPresent(URI.self, forKey: .favicon),
             authors: try container.decodeIfPresent([JSONFeed.Author].self, forKey: .authors),
-            language: try? container.decodeIfPresent(IETF.RFC.`5646`.LanguageTag.self, forKey: .language),
+            language: try? container.decodeIfPresent(IETF.RFC.`5646`.Tag.self, forKey: .language),
             expired: try container.decodeIfPresent(Bool.self, forKey: .expired),
             hubs: try container.decodeIfPresent([JSONFeed.Hub].self, forKey: .hubs),
             items: try container.decode([JSONFeed.Item].self, forKey: .items)
